@@ -1,0 +1,9 @@
+steps:
+- name: 'python:3.8'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    pip install -r requirements.txt
+    streamlit run main_streamlit.py
+images: []
