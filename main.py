@@ -3,6 +3,7 @@ import openai
 from PyPDF2 import PdfReader
 import docx
 import os
+import altair as alt
 
 # Set your OpenAI API key
 openai.api_key = 'sk-None-FBFW4QXZ59WhttjMrziST3BlbkFJG4N71gdeMHNK6OpoJoCT'
@@ -54,14 +55,14 @@ if uploaded_files:
     if st.button("Get Answer") and user_question:
         combined_text = "\n".join(document_texts)
         response = openai.ChatCompletion.create(
-            model="gpt-4",  # Updated parameter
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": f"Answer the following question based on the provided documents:\n\n{combined_text}\n\nQuestion: {user_question}\nAnswer:"}
             ],
             max_tokens=150
         )
-        answer = response.choices[0].message['content'].strip()  # Updated parameter
+        answer = response.choices[0].message['content'].strip()
         st.write(f"Answer: {answer}")
 
         # Save the conversation
@@ -77,3 +78,7 @@ else:
     conversation_history = ""
 st.sidebar.text_area("History", value=conversation_history, height=300)
 
+# The main entry point
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8080))
+    st.run(port=port)
