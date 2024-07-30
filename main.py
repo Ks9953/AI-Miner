@@ -78,7 +78,4 @@ else:
     conversation_history = ""
 st.sidebar.text_area("History", value=conversation_history, height=300)
 
-# The main entry point
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8080))
-    st.run(port=port)
+# No need to manually set the port; Streamlit handles this
